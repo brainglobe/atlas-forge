@@ -1,0 +1,24 @@
+species,sex,subject_id,resolution_z,resolution_y,resolution_x,origin,source_file_path
+Zebra finch,F,7927,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8003,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,65,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8279f,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8222f,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8033m,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8761m,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8722f,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8380m,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8719m,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8801m,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8291f,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8542f,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8685f,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8691m,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8312m_sag,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8883m_sag,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8838m,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8755m_trans,50,50,50,SAL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,M,8686m,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8747f_sag,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8784f_sag,50,50,50,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
+Zebra finch,F,8277f_trans,50,50,50,SAL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-50um/ds_ZF_8277f_trans_250730_172435_50_50_ch03_chan_3_green.tif
