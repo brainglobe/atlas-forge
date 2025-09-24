@@ -79,7 +79,7 @@ for idx, image_info in df.iterrows():
     # Create standardised image name
     res_xyz = [image_info.resolution_x, image_info.resolution_y, image_info.resolution_z]
     brainglobe_image_name = (
-        f"{image_info['subject_id']}_"
+        f"sub-{image_info['subject_id']}_"
         f"channel-{image_info['channel']}_"
         f"res-{res_xyz[0]}x{res_xyz[1]}x{res_xyz[2]}um_"
         "origin-asr"
@@ -87,7 +87,7 @@ for idx, image_info in df.iterrows():
     df.at[idx, "brainglobe_image_name"] = brainglobe_image_name
 
     # Save reoriented images in NIfTI format 
-    subject_folder = species_dir / "rawdata" / f"{image_info['subject_id']}"
+    subject_folder = species_dir / "rawdata" / f"sub-{image_info['subject_id']}"
     subject_folder.mkdir(exist_ok=True)
     nii_path = subject_folder / f"{brainglobe_image_name}.nii.gz"
     save_as_asr_nii(image_asr, res_xyz, nii_path)

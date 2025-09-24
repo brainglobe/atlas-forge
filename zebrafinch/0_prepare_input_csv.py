@@ -65,10 +65,9 @@ input_csv['subject_number'] = input_csv['subject_id'].str.extract(r'(\d+)')
 
 # Add ZF_ prefix and a suffix that is the _M or _F
 input_csv['subject_id'] = (
-    "ZF-" +
+    "ZF" +
     input_csv['subject_number'].astype(str) +
-    "-" +
-    input_csv['sex'].str.upper().str[0]
+    input_csv['sex'].str.lower().str[0]
 )
 
 atlas_dir = Path("/ceph/neuroinformatics/neuroinformatics/atlas-forge")
