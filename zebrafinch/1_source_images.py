@@ -93,7 +93,6 @@ for idx, image_info in df.iterrows():
     save_as_asr_nii(image_asr, res_zyx, nii_path)
     logger.debug(f"Saved reoriented image as {nii_path.name}.")
 
-# %%
-# Save input data with standardised image names to species rawdata directory
+# Save csv with input data and standardised image names for included subjects
 # -------------------------------------
-df.to_csv(species_dir / "sourcedata" / f"{today}_subjects.csv", index=False)
+df.to_csv(species_dir / "rawdata" / f"{today}_subjects.csv", index=False)
