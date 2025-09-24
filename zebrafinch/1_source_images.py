@@ -30,7 +30,7 @@ def species_name_to_id(species_name: str) -> str:
 # %%
 # Define input file path, atlas-forge directory, and species for which to create template
 # --------------------------------------------------------------------------------------
-input_csv_path = Path("zebrafinch/template_data.csv")
+input_csv_path = Path("zebrafinch/template_data_50um.csv")
 atlas_dir = Path("/ceph/neuroinformatics/neuroinformatics/atlas-forge")
 species = "Zebra finch"
 
@@ -87,7 +87,9 @@ for idx, image_info in df.iterrows():
     df.at[idx, "brainglobe_image_name"] = brainglobe_image_name
 
     # Save reoriented images in NIfTI format 
-    nii_path = species_dir / "rawdata" / f"{brainglobe_image_name}.nii.gz"
+    subject_folder = species_dir / "rawdata" / f"{image_info['subject_id']}"
+    subject_folder.mkdir(exist_ok=True)
+    nii_path = subject_folder / f"{brainglobe_image_name}.nii.gz"
     save_as_asr_nii(image_asr, res_xyz, nii_path)
     logger.debug(f"Saved reoriented image as {nii_path.name}.")
 
