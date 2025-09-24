@@ -77,11 +77,11 @@ for idx, image_info in df.iterrows():
     logger.debug(f"Reoriented image shape: {image_asr.shape}.")
 
     # Create standardised image name
-    res_xyz = [image_info.resolution_z, image_info.resolution_y, image_info.resolution_x]
+    res_zyx = [image_info.resolution_z, image_info.resolution_y, image_info.resolution_x]
     brainglobe_image_name = (
         f"sub-{image_info['subject_id']}_"
         f"channel-{image_info['channel']}_"
-        f"res-{res_xyz[0]}x{res_xyz[1]}x{res_xyz[2]}um_"
+        f"res-{res_zyx[0]}x{res_zyx[1]}x{res_zyx[2]}um_"
         "origin-asr"
     )
     df.at[idx, "brainglobe_image_name"] = brainglobe_image_name
@@ -90,7 +90,7 @@ for idx, image_info in df.iterrows():
     subject_folder = species_dir / "rawdata" / f"sub-{image_info['subject_id']}"
     subject_folder.mkdir(exist_ok=True)
     nii_path = subject_folder / f"{brainglobe_image_name}.nii.gz"
-    save_as_asr_nii(image_asr, res_xyz, nii_path)
+    save_as_asr_nii(image_asr, res_zyx, nii_path)
     logger.debug(f"Saved reoriented image as {nii_path.name}.")
 
 # %%
