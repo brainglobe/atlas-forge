@@ -77,7 +77,7 @@ for idx, image_info in df.iterrows():
     logger.debug(f"Reoriented image shape: {image_asr.shape}.")
 
     # Create standardised image name
-    res_xyz = [image_info.resolution_x, image_info.resolution_y, image_info.resolution_z]
+    res_xyz = [image_info.resolution_z, image_info.resolution_y, image_info.resolution_x]
     brainglobe_image_name = (
         f"sub-{image_info['subject_id']}_"
         f"channel-{image_info['channel']}_"
