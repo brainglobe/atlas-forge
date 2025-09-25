@@ -14,6 +14,7 @@ import os
 from datetime import date
 from pathlib import Path
 
+import ants
 import pandas as pd
 from loguru import logger
 
@@ -23,14 +24,47 @@ from brainglobe_template_builder.io import (
     save_as_asr_nii,
 )
 
+# TODO: check whether similar functions already exist elsewhere, 
+# if so use those, if not add below functions to template-builder
+
 def species_name_to_id(species_name: str) -> str:
     """Return species ID as uppercase string with no spaces."""
     return "".join(e.upper() for e in species_name.split())
 
+from typing import Dict
+
+def info_to_filename(image_info: Dict) -> str:
+    """
+    Generate a standardized filename from dictionary with keys:
+        - 'subject_id'
+        - 'channel'
+        - 'resolution_z'
+        - 'resolution_y'
+        - 'resolution_x'
+
+    Raises:
+    - KeyError if any required key is missing.
+    """
+    zyx_res = res_from_info(image_info)
+    filename =  (
+            f"sub-{image_info['subject_id']}_"
+            f"channel-{image_info['channel']}_"
+            f"res-{zyx_res[0]}x{zyx_res[1]}x{zyx_res[2]}um_"
+            "origin-asr"
+        )
+    return filename
+
+def res_from_info(image_info: Dict) -> list[float]:
+        return [
+            image_info["resolution_z"],
+            image_info["resolution_y"],
+            image_info["resolution_x"]
+        ]
+
 # %%
 # Define input file path, atlas-forge directory, and species for which to create template
 # --------------------------------------------------------------------------------------
-input_csv_path = Path("zebrafinch/template_data_50um.csv")
+input_csv_path = Path("zebrafinch/template_data_25um.csv")
 atlas_dir = Path("/ceph/neuroinformatics/neuroinformatics/atlas-forge")
 species = "Zebra finch"
 
@@ -59,12 +93,9 @@ logger.info(f"Will save outputs to {species_dir}.")
 # %%
 # Load source images and reorient them to ASR
 # -------------------------------------------
-
+nii_paths = []
 for idx, image_info in df.iterrows():
-    source_path = Path(image_info.source_file_path)
-    if not source_path.exists():
-        logger.error(f"Source image not found: {source_path}")
-        raise FileNotFoundError(f"Source image not found: {source_path}")
+    source_path = Path(image_info.source_filepath)
 
     # Reorient the image to ASR
     image = load_tiff(source_path)
@@ -76,23 +107,34 @@ for idx, image_info in df.iterrows():
     logger.debug(f"Reoriented image from {source_origin} to {target_origin}.")
     logger.debug(f"Reoriented image shape: {image_asr.shape}.")
 
-    # Create standardised image name
-    res_zyx = [image_info.resolution_z, image_info.resolution_y, image_info.resolution_x]
-    brainglobe_image_name = (
-        f"sub-{image_info['subject_id']}_"
-        f"channel-{image_info['channel']}_"
-        f"res-{res_zyx[0]}x{res_zyx[1]}x{res_zyx[2]}um_"
-        "origin-asr"
-    )
-    df.at[idx, "brainglobe_image_name"] = brainglobe_image_name
+    # Create rawdata / subject folder
+    rawdata_subject_folder = species_dir / "rawdata" / f"sub-{image_info['subject_id']}"
+    rawdata_subject_folder.mkdir(exist_ok=True)
 
     # Save reoriented images in NIfTI format 
-    subject_folder = species_dir / "rawdata" / f"sub-{image_info['subject_id']}"
-    subject_folder.mkdir(exist_ok=True)
-    nii_path = subject_folder / f"{brainglobe_image_name}.nii.gz"
-    save_as_asr_nii(image_asr, res_zyx, nii_path)
+    df.at[idx, "brainglobe_image_name"] = info_to_filename(image_info)
+    nii_path = rawdata_subject_folder / f"{info_to_filename(image_info)}.nii.gz"
+    df.at[idx, "rawdata_filepath"] = nii_path
+    save_as_asr_nii(image_asr, res_from_info(image_info),nii_path)
     logger.debug(f"Saved reoriented image as {nii_path.name}.")
 
 # Save csv with input data and standardised image names for included subjects
 # -------------------------------------
 df.to_csv(species_dir / "rawdata" / f"{today}_subjects.csv", index=False)
+
+for idx, image_info in df.iterrows():
+    rawdata_path = Path(image_info.rawdata_filepath)
+
+    # Create derivatives / subject folder
+    derivatives_subject_folder = species_dir / "derivatives" / f"sub-{image_info['subject_id']}"
+    derivatives_subject_folder.mkdir(exist_ok=True)
+
+    # Bias field correction (to homogenise intensities)
+    image_ants = ants.image_read(rawdata_path.as_posix())
+    image_n4 = ants.n4_bias_field_correction(image_ants)
+    image_n4_path =  derivatives_subject_folder / f"{info_to_filename(image_info)}_N4.nii.gz"
+    ants.image_write(image_n4, image_n4_path.as_posix())
+    logger.debug(
+        f"Created N4 bias field corrected image as {image_n4_path.name}."
+    )
+

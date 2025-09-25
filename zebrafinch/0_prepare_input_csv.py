@@ -89,12 +89,12 @@ for res in [25, 50]:
         # Find match within the data_dir 
         matches = list(data_dir.glob(f"**/{file_name}"))
         if matches:
-            file_path = matches[0]
+            filepath = matches[0]
         else:
             print(f"Warning: No file found for '{file_name}' in '{data_dir}'.")
         
-        # Add to source_file_path column in input_csv
-        input_csv.at[idx, "source_file_path"] = file_path
+        # Add to source_filepath column in input_csv
+        input_csv.at[idx, "source_filepath"] = filepath
 
     # Drop subject_number column (only used to match subjects to filenames)
     input_csv = input_csv.drop(columns=["subject_number"])

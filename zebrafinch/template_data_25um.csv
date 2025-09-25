@@ -1,4 +1,4 @@
-species,sex,subject_id,resolution_z,resolution_y,resolution_x,channel,origin,source_file_path
+species,sex,subject_id,resolution_z,resolution_y,resolution_x,channel,origin,source_filepath
 Zebra finch,F,ZF7927f,25,25,25,green,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-25um/ds_SW_ZF7927f_210317_111950_25_25_ch03_green.tif
 Zebra finch,M,ZF8003m,25,25,25,green,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-25um/ds_SW_ZF8003m_210317_204349_25_25_ch03_green.tif
 Zebra finch,F,ZF65f,25,25,25,green,PSL,/ceph/neuroinformatics/neuroinformatics/atlas-forge/zebrafinch/sourcedata/images-25um/ds_SW_ZF65f_220610_120307_25_25_ch03_chan_3_green.tif
