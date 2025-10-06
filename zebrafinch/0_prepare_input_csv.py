@@ -43,18 +43,6 @@ for res in [25, 50]:
         "origin": df_ZF["comments"],
     })
 
-    # When no plane is mentioned in comments change to PSL
-    # if TRANSVERSE in origin than change to SAL 
-    # if SAGGITAL change to LIP TODO: check whether this is correct (!)
-    for idx, row in input_csv.iterrows():
-        origin = str(row['origin']).upper().strip()
-        if "TRANSVERSE" in origin:
-            input_csv.at[idx, 'origin'] = "SAL"
-        elif "SAGGITAL" in origin:
-            input_csv.at[idx, 'origin'] = "LIP"
-        else:
-            input_csv.at[idx, 'origin'] = "PSL"
-
     # Fix subject id of ZF_65
     input_csv['subject_id'] = input_csv['subject_id'].str.replace("ZF 65", "ZF65")
 
@@ -70,6 +58,23 @@ for res in [25, 50]:
         input_csv['subject_number'].astype(str) +
         input_csv['sex'].str.lower().str[0]
     )
+
+    # origins different from  PSL
+    subject_origin_map = {
+        "ZF8686m": "ASR", 
+        "ZF8277f": "SAL",
+        "ZF8883m": "LAS", 
+        "ZF8312m": "LAS",
+        "ZF8784f": "LPS",
+        "ZF8755m": "SAL",
+        "ZF8747f": "LPI",
+    }
+
+    for idx, row in input_csv.iterrows():
+        subject_id = row['subject_id']
+        origin = subject_origin_map.get(subject_id, "PSL")
+        input_csv.at[idx, 'origin'] = origin
+
 
     atlas_dir = Path("/ceph/neuroinformatics/neuroinformatics/atlas-forge")
     data_dir = atlas_dir / "zebrafinch" / "sourcedata"
