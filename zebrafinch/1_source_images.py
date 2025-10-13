@@ -64,7 +64,6 @@ def res_from_info(image_info: Dict) -> list[float]:
 # %%
 # Define input file path, atlas-forge directory, and species for which to create template
 # --------------------------------------------------------------------------------------
-input_csv_path = Path("zebrafinch/template_data_25um.csv")
 atlas_dir = Path("/ceph/neuroinformatics/neuroinformatics/atlas-forge")
 species = "Zebra finch"
 
@@ -72,7 +71,7 @@ species = "Zebra finch"
 # Create template directories, load input data, and set up logs
 # -------------------------------------------
 
-for res in [25,50]:
+for res in [25,50]: # TODO: use one type of images and downscale using downsample_anisotropic_image_stack for lowres steps.
     input_csv_path = Path(f"zebrafinch/template_data_{res}um.csv")
     # Load input data
     input_df = pd.read_csv(input_csv_path)
