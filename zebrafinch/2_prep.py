@@ -1,11 +1,9 @@
 """
-Prepare low-resolution BlackCap images for template construction
+Prepare low-resolution ZebraFinch images for template construction
 ================================================================
 The following operations are performed on the lowest-resolution images to
 prepare them for template construction:
 - Generate brain mask based on N4-corrected image
-- Rigid-register the re-oriented image to an already aligned target (with ANTs)
-- Transform the image and mask into the aligned space
 - Split the image and mask into hemispheres and reflect each hemisphere
 - Generate symmetric brains using either the left or right hemisphere
 - Save all resulting images as nifti files to be used for template construction
@@ -21,18 +19,13 @@ from pathlib import Path
 import ants
 import numpy as np
 import pandas as pd
-from brainglobe_space import AnatomicalSpace
 from loguru import logger
-from tqdm import tqdm
 
 from brainglobe_template_builder.io import (
     file_path_with_suffix,
-    load_tiff,
-    save_as_asr_nii,
 )
 from brainglobe_template_builder.preproc.masking import create_mask
 from brainglobe_template_builder.preproc.splitting import (
-    generate_arrays_4template,
     save_array_dict_to_nii,
 )
 
@@ -49,7 +42,7 @@ from brainglobe_template_builder.preproc.splitting import (
 
 os.environ["QT_QPA_PLATFORM"] = "offscreen"
 # Define voxel size(in microns) of the lowest resolution image
-lowres = 50
+lowres = 50 
 # String to identify the resolution in filenames
 res_str = f"res-{lowres}um"
 # Define voxel sizes in mm (for Nifti saving)
@@ -76,17 +69,15 @@ lowres_template_df = lowres_df.iloc[0:3,:] # just first three for test
 # %%
 # Run the pipeline for each subject
 # ---------------------------------
-
-
 # Create a dictionary to store the paths to the use4template directories
 # per subject. These will contain all necessary images for template building.
-lowres = 50
 csv_files = [file for file in os.listdir(rawdata_dir) if ".csv" in file]
-low_res_csv_file = [file for file in csv_files if f"{lowres}um" in file][0]
-# Load input data
-lowres_df = pd.read_csv(rawdata_dir / low_res_csv_file)
-lowres_template_df = lowres_df.iloc[0:3,:] # just first three for test
+lowres_csv_file = [file for file in csv_files if f"{lowres}um" in file][0]
 
+# Load input data
+lowres_df = pd.read_csv(rawdata_dir / lowres_csv_file)
+
+lowres_template_df = lowres_df.iloc[0:3,:] # just first three for test #TODO: add all brains (!)
 
 use4template_dirs = {}
 for idx, row in lowres_template_df.iterrows():
@@ -139,13 +130,13 @@ for idx, row in lowres_template_df.iterrows():
 
     image_n4 = image_n4.numpy()
     mask = mask.numpy()
-    right_hemi_slices, _ = get_right_and_left_slices(image_n4)
+    right_hemi_slices, left_hemi_slices = get_right_and_left_slices(image_n4)
 
     array_dict = {
-        f"{use4template_dir}/{row.brainglobe_image_name}_sym-brain": np.pad(
+        f"{use4template_dir}/{row.brainglobe_image_name}_asym-brain": np.pad(
             image_n4, pad_width=2, mode="constant"
         ),
-        f"{use4template_dir}/{row.brainglobe_image_name}_sym-mask": np.pad(
+        f"{use4template_dir}/{row.brainglobe_image_name}_asym-mask": np.pad(
             mask, pad_width=2, mode="constant"
         ),
         f"{use4template_dir}/{row.brainglobe_image_name}_right-hemi-brain": np.pad(
@@ -153,7 +144,12 @@ for idx, row in lowres_template_df.iterrows():
         ),
         f"{use4template_dir}/{row.brainglobe_image_name}_right-hemi-mask": np.pad(
             mask[right_hemi_slices], pad_width=2, mode="constant"
+        ),       
+        f"{use4template_dir}/{row.brainglobe_image_name}_left-hemi-brain": np.pad(
+            image_n4[left_hemi_slices], pad_width=2, mode="constant"
         ),
+        f"{use4template_dir}/{row.brainglobe_image_name}_left-hemi-mask": np.pad(
+            mask[left_hemi_slices], pad_width=2, mode="constant")
     }
     save_array_dict_to_nii(array_dict, use4template_dir, vox_sizes)
     use4template_dirs[row.brainglobe_image_name] = use4template_dir
@@ -169,52 +165,31 @@ for idx, row in lowres_template_df.iterrows():
 # -----------------------------------------------------
 # Use the paths to the use4template directories to generate lists of file paths
 # for the template construction pipeline. Three kinds of template will be
-# generated, and each needs the corresponding brain image and mask files:
-# 1. All asym* files for subjects where hemi=both. These will be used to
-#    generate an asymmetric brain template.
-# 2. All right-sym* files for subjects where use_right is True, and
-#    all left-sym* files for subjects where use_left is True.
-#    These will be used to generate a symmetric brain template.
-# 3. All right-hemi* files for subjects where use_right is True,
-#    and all left-hemi-xflip* files for subjects where use_left is True.
-#    These will be used to generate a symmetric hemisphere template.
+# generated, and each needs the corresponding brain image and mask files
+
 
 filepath_lists: dict[str, list] = {
     "asym-brain": [],
     "asym-mask": [],
     "sym-brain": [],
     "sym-mask": [],
-    "hemi-brain": [],
-    "hemi-mask": [],
 }
 
 for _, row in lowres_template_df.iterrows():
-    subject = row.brainglobe_image_name
-    use4template_dir = use4template_dirs[subject]
-
+    brainglobe_image_name = row.brainglobe_image_name
+    use4template_dir = use4template_dirs[brainglobe_image_name]
 
     # Add paths for the asymmetric brain template
     for label in ["brain", "mask"]:
         filepath_lists[f"asym-{label}"].append(
-            use4template_dir / f"{subject}_asym-{label}.nii.gz"
+            use4template_dir / f"{brainglobe_image_name}_asym-{label}.nii.gz"
         )
-
         # Add paths for the symmetric brain template
         filepath_lists[f"sym-{label}"].append(
-            use4template_dir / f"{subject}_right-sym-{label}.nii.gz"
+            use4template_dir / f"{brainglobe_image_name}-_left-hemi-{label}.nii.gz"
         )
-        # Add paths for the hemispheric template
-        filepath_lists[f"hemi-{label}"].append(
-            use4template_dir / f"{subject}_right-hemi-{label}.nii.gz"
-        )
-
-        # Add paths for the symmetric brain template
         filepath_lists[f"sym-{label}"].append(
-            use4template_dir / f"{subject}_left-sym-{label}.nii.gz"
-        )
-        # Add paths for the hemispheric template
-        filepath_lists[f"hemi-{label}"].append(
-            use4template_dir / f"{subject}_left-hemi-xflip-{label}.nii.gz"
+            use4template_dir / f"{brainglobe_image_name}-_right-hemi-{label}.nii.gz"
         )
 
 # %%
