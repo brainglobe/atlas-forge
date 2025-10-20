@@ -1,0 +1,29 @@
+# Input CSV
+To build a template, provide a CSV with information about the images you'd like to use. Each line in the CSV represents a stack of images.
+
+### Required Columns
+- `subject_id`: Unique identifier for the subject
+- `source_filepath`: Full path to the raw imaging data file
+- `resolution_z`: Voxel resolution in the Z axis (in μm)
+- `resolution_y`: Voxel resolution in the Y axis (in μm)
+- `resolution_x`: Voxel resolution in the X axis (in μm)
+- `origin`: Orientation of the image (e.g., `PSL`, `LSP`, `RAS`)
+
+### Optional Columns
+- `species`: Species name (e.g., `Mus musculus`, `Rattus norvegicus`)
+- `sex`: Biological sex of the subject (`M`, `F`)
+- `age`: Age of the subject (e.g., `12 weeks`, `P30`)
+- `channel`: Imaging channel (e.g., `green`)
+- `use`: `true` or `false`
+
+> ℹ️ Additional columns can be included as needed.
+
+### Example
+
+```csv
+species,sex,subject_id,resolution_z,resolution_y,resolution_x,origin,channel,source_filepath
+Zebra finch,F,ZF1,25,25,25,PSL,green,/ceph/atlas-forge/zebrafinch/sourcedata/ZF1_25_25_ch03_green.tif
+Zebra finch,M,ZF2,25,25,25,PSL,green,/ceph/atlas-forge/zebrafinch/sourcedata/ZF2_25_25_ch03_green.tif
+Zebra finch,F,ZF3,25,25,25,PSL,green,/ceph/atlas-forge/zebrafinch/sourcedata/ZF3_25_25_ch03_chan_3_green.tif
+Zebra finch,M,ZF4,25,25,25,PSL,green,/ceph/atlas-forge/zebrafinch/sourcedata/ZF4_25_25_ch03_chan_3_green.tif
+```
