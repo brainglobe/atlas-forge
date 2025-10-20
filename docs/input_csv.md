@@ -2,15 +2,15 @@
 To build a template, provide a CSV with information about the images you'd like to use. Each line in the CSV represents a stack of images.
 
 ### Required Columns
-- `subject_id`: Unique identifier for the subject
-- `source_filepath`: Full path to the raw imaging data file
+- `subject_id`: Unique identifier for the subject. Do not use spaces, hyphens (`-`) or underscores (`_`).
+- `source_filepath`: Full path to the source image stack
 - `resolution_z`: Voxel resolution in the Z axis (in μm)
 - `resolution_y`: Voxel resolution in the Y axis (in μm)
 - `resolution_x`: Voxel resolution in the X axis (in μm)
-- `origin`: Orientation of the image (e.g., `PSL`, `LSP`, `RAS`)
+- `origin`: Three letter describing the anatomical orientation of the image (e.g., `PSL`, `LSP`, `RAS`)
 
 ### Optional Columns
-- `species`: Species name (e.g., `Mus musculus`, `Rattus norvegicus`)
+- `species`: Species name
 - `sex`: Biological sex of the subject (`M`, `F`)
 - `age`: Age of the subject (e.g., `12 weeks`, `P30`)
 - `channel`: Imaging channel (e.g., `green`)
