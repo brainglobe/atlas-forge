@@ -43,7 +43,6 @@ from brainglobe_template_builder.preproc.splitting import (
 os.environ["QT_QPA_PLATFORM"] = "offscreen"
 # Define voxel size(in microns) of the lowest resolution image
 lowres = 50 
-# String to identify the resolution in filenames
 res_str = f"res-{lowres}um"
 # Define voxel sizes in mm (for Nifti saving)
 vox_sizes = [lowres * 1e-3] * 3  # in mm
@@ -130,7 +129,8 @@ for idx, row in lowres_template_df.iterrows():
 
     image_n4 = image_n4.numpy()
     mask = mask.numpy()
-    right_hemi_slices, left_hemi_slices = get_right_and_left_slices(image_n4)
+    right_hemi_slices, left_hemi_slices = get_right_and_left_slices(image_n4) #TODO: We dont need this for the ZebraFinch
+    # TODO: look at rat example and use xflip method for symmetric template creation
 
     array_dict = {
         f"{use4template_dir}/{row.brainglobe_image_name}_asym-brain": np.pad(
