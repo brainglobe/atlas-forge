@@ -7,7 +7,7 @@ To build a template, provide a CSV with information about the images you'd like 
 - `resolution_z`: Voxel resolution in the Z axis (in μm)
 - `resolution_y`: Voxel resolution in the Y axis (in μm)
 - `resolution_x`: Voxel resolution in the X axis (in μm)
-- `origin`: Three letter describing the anatomical orientation of the image (e.g., `PSL`, `LSP`, `RAS`)
+- `origin`: Three letters describing the anatomical orientation of the image (e.g., `PSL`, `LSP`, `RAS`)
 
 ### Optional Columns
 - `species`: Species name
