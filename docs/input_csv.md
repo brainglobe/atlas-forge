@@ -14,7 +14,7 @@ To build a template, provide a CSV with information about the images you'd like 
 - `sex`: Biological sex of the subject (`M`, `F`)
 - `age`: Age of the subject (e.g., `12 weeks`, `P30`)
 - `channel`: Imaging channel (e.g., `green`)
-- `use`: `true` or `false`
+- `use`: whether to include the image in the template building process (`true` or `false`)
 
 > ℹ️ Additional columns can be included as needed.
 
