@@ -1,7 +1,7 @@
 # Input CSV
 To build a template, provide a CSV with information about the images you'd like to use. Each line in the CSV represents a stack of images.
 
-### Required Columns
+## Required Columns
 - `subject_id`: Unique identifier for the subject. Do not use spaces, hyphens (`-`) or underscores (`_`).
 - `resolution_z`: Voxel resolution in the Z axis (in μm)
 - `resolution_y`: Voxel resolution in the Y axis (in μm)
@@ -9,7 +9,7 @@ To build a template, provide a CSV with information about the images you'd like 
 - `origin`: 3-letter anatomical orientation code (e.g., `PSL`, `LSP`, `RAS`). See the [`AnatomicalSpace`](https://github.com/brainglobe/brainglobe-space/blob/1f2e3056fb35de87b962355f263a1462ce1dec53/brainglobe_space/core.py#L30) docstring for more context.
 - `source_filepath`: Full path to the source image stack
 
-### Optional Columns
+## Optional Columns
 - `species`: Species name
 - `sex`: Biological sex of the subject (`M`, `F`)
 - `age`: Age of the subject (e.g., `12 weeks`, `P30`)
@@ -18,7 +18,7 @@ To build a template, provide a CSV with information about the images you'd like 
 
 > ℹ️ Additional columns can be included as needed.
 
-### Example
+## Example
 
 ```csv
 subject_id,resolution_z,resolution_y,resolution_x,origin,source_filepath,species,sex
