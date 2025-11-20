@@ -13,6 +13,9 @@ from brainglobe_template_builder.preproc.splitting import (
 # Define voxel size(in microns) of the lowest resolution image
 lowres = 50
 
+# Whether to split the brains into hemispheres and mirror them
+split_and_mirror = False
+
 # Define voxel sizes in mm (for Nifti saving)
 lowres_vox_sizes = [lowres * 1e-3] * 3  # in mm
 
@@ -70,7 +73,7 @@ all_mask_paths_flipped = []
 all_brain_paths_mirrored = []
 all_mask_paths_mirrored = []
 
-for img_path, mask_path in zip(rat_image_paths, rat_mask_paths):
+for img_path, mask_path in zip(rat_image_paths, rat_mask_paths, split_and_mirror):
 
     img_ants = ants.image_read(img_path.as_posix())
     img_n4 = ants.n4_bias_field_correction(img_ants)
@@ -177,30 +180,32 @@ for img_path, mask_path in zip(rat_image_paths, rat_mask_paths):
         [padded_mask_filepath, flipped_mask_filepath]
     )
 
-    # Splitting brains using brainglobe_template_builder.preproc.splitting
+    if split_and_mirror == True:
 
-    # Slice into right and left hemispheres
-    right_slices, left_slices = get_right_and_left_slices(padded_img)
+        # Splitting brains using brainglobe_template_builder.preproc.splitting
 
-    # Process images and masks
-    subject = img_path.with_suffix("").stem + "_N4"
-    processed_arrays = generate_arrays_4template(
-        subject, padded_img, padded_mask.astype(np.uint8), pad=0
-    )
+        # Slice into right and left hemispheres
+        right_slices, left_slices = get_right_and_left_slices(padded_img)
 
-    # Create mirrored folder
-    mirrored_folder = img_path.parent / "mirrored"
-    mirrored_folder.mkdir(parents=True, exist_ok=True)
+        # Process images and masks
+        subject = img_path.with_suffix("").stem + "_N4"
+        processed_arrays = generate_arrays_4template(
+            subject, padded_img, padded_mask.astype(np.uint8), pad=0
+        )
 
-    # Save processed arrays in the mirrored folder
-    vox_sizes = lowres_vox_sizes
-    save_array_dict_to_nii(processed_arrays, mirrored_folder, vox_sizes)
+        # Create mirrored folder
+        mirrored_folder = img_path.parent / "mirrored"
+        mirrored_folder.mkdir(parents=True, exist_ok=True)
 
-    for file in mirrored_folder.glob("*.nii.gz"):
-        if "mask" in file.stem:
-            all_mask_paths_mirrored.append(file)
-        else:
-            all_brain_paths_mirrored.append(file)
+        # Save processed arrays in the mirrored folder
+        vox_sizes = lowres_vox_sizes
+        save_array_dict_to_nii(processed_arrays, mirrored_folder, vox_sizes)
+
+        for file in mirrored_folder.glob("*.nii.gz"):
+            if "mask" in file.stem:
+                all_mask_paths_mirrored.append(file)
+            else:
+                all_brain_paths_mirrored.append(file)
 
 
 # Save paths to text files
@@ -208,15 +213,16 @@ output_dir = Path(project_folder_path) / "templates"
 output_dir.mkdir(exist_ok=True)
 
 np.savetxt(
-    output_dir / "brain_paths_flipped.txt", all_brain_paths_flipped, fmt="%s"
+    output_dir / "brain_paths_flipped.txt", sorted(all_brain_paths_flipped), fmt="%s"
 )
 np.savetxt(
-    output_dir / "mask_paths_flipped.txt", all_mask_paths_flipped, fmt="%s"
+    output_dir / "mask_paths_flipped.txt", sorted(all_mask_paths_flipped), fmt="%s"
 )
 
-np.savetxt(
-    output_dir / "brain_paths_mirrored.txt", all_brain_paths_mirrored, fmt="%s"
-)
-np.savetxt(
-    output_dir / "mask_paths_mirrored.txt", all_mask_paths_mirrored, fmt="%s"
-)
+if split_and_mirror == True:
+    np.savetxt(
+        output_dir / "brain_paths_mirrored.txt", sorted(all_brain_paths_mirrored), fmt="%s"
+    )
+    np.savetxt(
+        output_dir / "mask_paths_mirrored.txt", sorted(all_mask_paths_mirrored), fmt="%s"
+    )
