@@ -4,3 +4,5 @@ rat,Rattus norvegicus domestica ,Lister Hooded,ATL02,50-80,F,"none",,serial 2p,2
 rat,Rattus norvegicus domestica ,Lister Hooded,ATL03,50-80,F,"none",,serial 2p,2.504,2.504,5,green,OK,/ceph/akrami/_projects/rat_atlas/rawdata/sub-03_id-ATL03/ses-01_dtype-serial2p/2pe,
 rat,Rattus norvegicus domestica ,Lister Hooded,ATL04,50-80,F,"none",,serial 2p,2.278,2.278,5,green,OK,/ceph/akrami/_projects/rat_atlas/rawdata/sub-04_id-ATL04/ses-01_dtype-serial2p/2pe,
 rat,Rattus norvegicus domestica ,Lister Hooded,ATL05,50-80,F,"none",,serial 2p,2.278,2.278,5,green,OK,/ceph/akrami/_projects/rat_atlas/rawdata/sub-05_id-ATL05/ses-01_dtype-serial2p/2pe,
+rat,Rattus norvegicus domestica ,Lister Hooded,ATL06,50-80,F,"none",,serial 2p,4.033,4.033,6.3,green,OK,/ceph/akrami/_projects/rat_atlas/rawdata/sub-06_id-ATL06/ses-01_dtype-serial2p/2pe,
+rat,Rattus norvegicus domestica ,Lister Hooded,ATL07,50-80,F,"none",,serial 2p,4.006,4.006,6.3,red,OK,/ceph/akrami/_projects/rat_atlas/rawdata/sub-07_id-ATL07/ses-01_dtype-serial2p/2pe,
