@@ -19,7 +19,10 @@ split_and_mirror = False
 # Define voxel sizes in mm (for Nifti saving)
 lowres_vox_sizes = [lowres * 1e-3] * 3  # in mm
 
-project_folder_path = "/ceph/akrami/_projects/rat_atlas/derivatives/swc_female_rat_template"  #  "/mnt/ceph/_projects/rat_atlas/derivatives"
+project_folder_path = (
+    "/ceph/akrami/_projects/rat_atlas/derivatives"
+    "swc_female_rat_template"
+)
 
 # Get all subject IDs dynamically
 subject_ids = [
@@ -180,7 +183,7 @@ for img_path, mask_path in zip(rat_image_paths, rat_mask_paths):
         [padded_mask_filepath, flipped_mask_filepath]
     )
 
-    if split_and_mirror == True:
+    if split_and_mirror:
 
         # Splitting brains using brainglobe_template_builder.preproc.splitting
 
@@ -219,7 +222,7 @@ np.savetxt(
     output_dir / "mask_paths_flipped.txt", sorted(all_mask_paths_flipped), fmt="%s"
 )
 
-if split_and_mirror == True:
+if split_and_mirror:
     np.savetxt(
         output_dir / "brain_paths_mirrored.txt", sorted(all_brain_paths_mirrored), fmt="%s"
     )

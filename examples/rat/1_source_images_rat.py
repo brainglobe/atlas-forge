@@ -245,8 +245,9 @@ subjects = sorted(
     [f for f in os.listdir(derivatives_dir) if f.startswith("sub-")]
 )
 
-### !!!!! this is going to fail on second run when the output of 2_prep_lowres_rat.py is in the folder
-### run only on new subjects e.g: subjects = ['sub-ATL06', 'sub-ATL07']
+# !!!!! this is going to fail on second run when the output of 
+# 2_prep_lowres_rat.py is in the folder
+# run only on new subjects e.g: subjects = ['sub-ATL06', 'sub-ATL07']
 
 for sub in tqdm(subjects):
     sub_dir = derivatives_dir / sub
