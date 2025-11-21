@@ -20,8 +20,7 @@ split_and_mirror = False
 lowres_vox_sizes = [lowres * 1e-3] * 3  # in mm
 
 project_folder_path = (
-    "/ceph/akrami/_projects/rat_atlas/derivatives"
-    "swc_female_rat_template"
+    "/ceph/akrami/_projects/rat_atlas/derivatives" "swc_female_rat_template"
 )
 
 # Get all subject IDs dynamically
@@ -216,16 +215,24 @@ output_dir = Path(project_folder_path) / "paths_to_images"
 output_dir.mkdir(exist_ok=True)
 
 np.savetxt(
-    output_dir / "brain_paths_flipped.txt", sorted(all_brain_paths_flipped), fmt="%s"
+    output_dir / "brain_paths_flipped.txt",
+    sorted(all_brain_paths_flipped),
+    fmt="%s",
 )
 np.savetxt(
-    output_dir / "mask_paths_flipped.txt", sorted(all_mask_paths_flipped), fmt="%s"
+    output_dir / "mask_paths_flipped.txt",
+    sorted(all_mask_paths_flipped),
+    fmt="%s",
 )
 
 if split_and_mirror:
     np.savetxt(
-        output_dir / "brain_paths_mirrored.txt", sorted(all_brain_paths_mirrored), fmt="%s"
+        output_dir / "brain_paths_mirrored.txt",
+        sorted(all_brain_paths_mirrored),
+        fmt="%s",
     )
     np.savetxt(
-        output_dir / "mask_paths_mirrored.txt", sorted(all_mask_paths_mirrored), fmt="%s"
+        output_dir / "mask_paths_mirrored.txt",
+        sorted(all_mask_paths_mirrored),
+        fmt="%s",
     )
