@@ -19,7 +19,7 @@ split_and_mirror = False
 # Define voxel sizes in mm (for Nifti saving)
 lowres_vox_sizes = [lowres * 1e-3] * 3  # in mm
 
-project_folder_path = "/ceph/akrami/_projects/rat_atlas/derivatives/horizontal_brains"  #  "/mnt/ceph/_projects/rat_atlas/derivatives"
+project_folder_path = "/ceph/akrami/_projects/rat_atlas/derivatives/swc_female_rat_template"  #  "/mnt/ceph/_projects/rat_atlas/derivatives"
 
 # Get all subject IDs dynamically
 subject_ids = [
@@ -37,14 +37,14 @@ dimensions = []
 for subject_id in subject_ids:
     rat_image_path = list(
         Path(project_folder_path).rglob(
-            f"{subject_id}/{subject_id}_*_orig-asr_aligned.nii.gz"
+            f"{subject_id}/{subject_id}_*_orig-asr.nii.gz"
         )
     )
     rat_image_paths.extend(rat_image_path)
 
     rat_mask_path = list(
         Path(project_folder_path).rglob(
-            f"{subject_id}/{subject_id}_*_orig-asr_label-brain_aligned.nii.gz"
+            f"{subject_id}/{subject_id}_*_orig-asr_label-brain.nii.gz"
         )
     )
     rat_mask_paths.extend(rat_mask_path)
@@ -73,7 +73,7 @@ all_mask_paths_flipped = []
 all_brain_paths_mirrored = []
 all_mask_paths_mirrored = []
 
-for img_path, mask_path in zip(rat_image_paths, rat_mask_paths, split_and_mirror):
+for img_path, mask_path in zip(rat_image_paths, rat_mask_paths):
 
     img_ants = ants.image_read(img_path.as_posix())
     img_n4 = ants.n4_bias_field_correction(img_ants)
@@ -209,7 +209,7 @@ for img_path, mask_path in zip(rat_image_paths, rat_mask_paths, split_and_mirror
 
 
 # Save paths to text files
-output_dir = Path(project_folder_path) / "templates"
+output_dir = Path(project_folder_path) / "paths_to_images"
 output_dir.mkdir(exist_ok=True)
 
 np.savetxt(

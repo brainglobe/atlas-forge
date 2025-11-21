@@ -64,7 +64,7 @@ logger.info(f"Will save outputs to {species_dir}.")
 #path_of_this_script = Path(__file__).resolve()
 path_of_this_script = Path("/nfs/nhome/live/vplattner/github_repos/brainglobe-template-builder/examples/rat/1_source_images_rat.py")
 source_csv_dir = path_of_this_script.parent.parent.parent / "data"
-source_csv_path = source_csv_dir / "SWC_rat_horizontal.csv"
+source_csv_path = source_csv_dir / "swc_female_rat_template.csv"
 df = pd.read_csv(source_csv_path)
 
 # Strip trailing space from str columns and from column names
@@ -186,7 +186,7 @@ for sub in df["subject_id"]:
 # -------------------------------------
 # Save the dataframes to the species derivatives directory.
 
-derivatives_dir = species_dir / "derivatives" / "horizontal_brains"
+derivatives_dir = species_dir / "derivatives" / "swc_female_rat_template"
 subjects_csv = derivatives_dir / f"{today}_subjects.csv"
 df.to_csv(subjects_csv, index=False)
 logger.info(f"Saved subject information to csv: {subjects_csv}")
