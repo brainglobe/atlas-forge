@@ -11,7 +11,7 @@ from brainglobe_template_builder.preproc.splitting import (
 )
 
 # Define voxel size(in microns) of the lowest resolution image
-lowres = 50
+lowres = 25
 
 # Whether to split the brains into hemispheres and mirror them
 split_and_mirror = False
@@ -20,7 +20,7 @@ split_and_mirror = False
 lowres_vox_sizes = [lowres * 1e-3] * 3  # in mm
 
 project_folder_path = (
-    "/ceph/akrami/_projects/rat_atlas/derivatives"
+    "/ceph/akrami/_projects/rat_atlas/derivatives/"
     "swc_female_rat_template"
 )
 
@@ -40,14 +40,14 @@ dimensions = []
 for subject_id in subject_ids:
     rat_image_path = list(
         Path(project_folder_path).rglob(
-            f"{subject_id}/{subject_id}_*_orig-asr.nii.gz"
+            f"{subject_id}/{subject_id}_res-{lowres}um_*_orig-asr.nii.gz"
         )
     )
     rat_image_paths.extend(rat_image_path)
 
     rat_mask_path = list(
         Path(project_folder_path).rglob(
-            f"{subject_id}/{subject_id}_*_orig-asr_label-brain.nii.gz"
+            f"{subject_id}/{subject_id}_res-{lowres}um_*_orig-asr_label-brain.nii.gz"
         )
     )
     rat_mask_paths.extend(rat_mask_path)
@@ -216,16 +216,16 @@ output_dir = Path(project_folder_path) / "paths_to_images"
 output_dir.mkdir(exist_ok=True)
 
 np.savetxt(
-    output_dir / "brain_paths_flipped.txt", sorted(all_brain_paths_flipped), fmt="%s"
+    output_dir / f"brain_paths_flipped_res-{lowres}um.txt", sorted(all_brain_paths_flipped), fmt="%s"
 )
 np.savetxt(
-    output_dir / "mask_paths_flipped.txt", sorted(all_mask_paths_flipped), fmt="%s"
+    output_dir / f"mask_paths_flipped_res-{lowres}um.txt", sorted(all_mask_paths_flipped), fmt="%s"
 )
 
 if split_and_mirror:
     np.savetxt(
-        output_dir / "brain_paths_mirrored.txt", sorted(all_brain_paths_mirrored), fmt="%s"
+        output_dir / f"brain_paths_mirrored_res-{lowres}um.txt", sorted(all_brain_paths_mirrored), fmt="%s"
     )
     np.savetxt(
-        output_dir / "mask_paths_mirrored.txt", sorted(all_mask_paths_mirrored), fmt="%s"
+        output_dir / f"mask_paths_mirrored_res-{lowres}um.txt", sorted(all_mask_paths_mirrored), fmt="%s"
     )
