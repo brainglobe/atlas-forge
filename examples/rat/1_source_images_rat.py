@@ -52,7 +52,7 @@ source_dir = get_path_from_env_variable(
 
 # Set up logging
 today = date.today()
-#current_script_name = os.path.basename(__file__).replace(".py", "")
+# current_script_name = os.path.basename(__file__).replace(".py", "")
 current_script_name = "1_source_images_rat"
 logger.add(species_dir / "logs" / f"{today}_{current_script_name}.log")
 logger.info(f"Will save outputs to {species_dir}.")
@@ -61,8 +61,10 @@ logger.info(f"Will save outputs to {species_dir}.")
 # Load a dataframe with all SWC brains used for atlases
 # ------------------------------------------------------
 
-#path_of_this_script = Path(__file__).resolve()
-path_of_this_script = Path("/nfs/nhome/live/vplattner/github_repos/brainglobe-template-builder/examples/rat/1_source_images_rat.py")
+# path_of_this_script = Path(__file__).resolve()
+path_of_this_script = Path(
+    "/nfs/nhome/live/vplattner/github_repos/brainglobe-template-builder/examples/rat/1_source_images_rat.py"
+)
 source_csv_dir = path_of_this_script.parent.parent.parent / "data"
 source_csv_path = source_csv_dir / "swc_female_rat_template.csv"
 df = pd.read_csv(source_csv_path)
@@ -245,7 +247,7 @@ subjects = sorted(
     [f for f in os.listdir(derivatives_dir) if f.startswith("sub-")]
 )
 
-# !!!!! this is going to fail on second run when the output of 
+# !!!!! this is going to fail on second run when the output of
 # 2_prep_lowres_rat.py is in the folder
 # run only on new subjects e.g: subjects = ['sub-ATL06', 'sub-ATL07']
 

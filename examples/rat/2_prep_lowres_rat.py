@@ -216,16 +216,24 @@ output_dir = Path(project_folder_path) / "paths_to_images"
 output_dir.mkdir(exist_ok=True)
 
 np.savetxt(
-    output_dir / f"brain_paths_flipped_res-{lowres}um.txt", sorted(all_brain_paths_flipped), fmt="%s"
+    output_dir / f"brain_paths_flipped_res-{lowres}um.txt",
+    sorted(all_brain_paths_flipped),
+    fmt="%s",
 )
 np.savetxt(
-    output_dir / f"mask_paths_flipped_res-{lowres}um.txt", sorted(all_mask_paths_flipped), fmt="%s"
+    output_dir / f"mask_paths_flipped_res-{lowres}um.txt",
+    sorted(all_mask_paths_flipped),
+    fmt="%s",
 )
 
 if split_and_mirror:
     np.savetxt(
-        output_dir / f"brain_paths_mirrored_res-{lowres}um.txt", sorted(all_brain_paths_mirrored), fmt="%s"
+        output_dir / f"brain_paths_mirrored_res-{lowres}um.txt",
+        sorted(all_brain_paths_mirrored),
+        fmt="%s",
     )
     np.savetxt(
-        output_dir / f"mask_paths_mirrored_res-{lowres}um.txt", sorted(all_mask_paths_mirrored), fmt="%s"
+        output_dir / f"mask_paths_mirrored_res-{lowres}um.txt",
+        sorted(all_mask_paths_mirrored),
+        fmt="%s",
     )
