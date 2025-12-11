@@ -22,22 +22,23 @@ if __name__ == "__main__":
 
     space = AnatomicalSpace("ASR", shape=template_image.shape)
     print(template_image.shape)
-    show_slices = (350, 200, 300)
-    slice_shift_due_to_padding = [(np.max(template_image.shape)-template_image.shape[i])//2 for i in range(3)]
-    print(slice_shift_due_to_padding)
+    show_slices_template = (322, 131, 173)
+    slice_shift_due_to_padding_template = [(np.max(template_image.shape)-template_image.shape[i])//2 for i in range(3)]
+    print(slice_shift_due_to_padding_template)
     
     figure, axes = plot_orthographic(
         template_image,
-        show_slices=show_slices,
-        vmin=1000,
-        vmax=50000
+        show_slices=show_slices_template,
+        vmin=2000,
+        vmax=45000,
+        mip_attenuation=0.004
     )
     for i in range(3):
         ax = axes[i]
         h, v = space.index_pairs[i]
         print(h,v)
-        ax.axhline(show_slices[h]+slice_shift_due_to_padding[h], color="r", linestyle="--", alpha=0.5)
-        ax.axvline(show_slices[v]+slice_shift_due_to_padding[v], color="r", linestyle="--", alpha=0.5)
+        ax.axhline(show_slices_template[h]+slice_shift_due_to_padding_template[h], color="r", linestyle="--", alpha=0.5)
+        ax.axvline(show_slices_template[v]+slice_shift_due_to_padding_template[v], color="r", linestyle="--", alpha=0.5)
     
     _save_and_close_figure(
         figure,
@@ -45,17 +46,20 @@ if __name__ == "__main__":
         "template"
     )
     
+    slice_shift_due_to_padding = [(np.max(individual_image.shape)-individual_image.shape[i])//2 for i in range(3)]
+    show_slices_individual = (371, 183, 174)
     figure, axes = plot_orthographic(
         individual_image, 
-        show_slices=show_slices,
-        vmin=1000,
-        vmax=50000
+        show_slices=show_slices_individual,
+        vmin=2000,
+        vmax=45000,
+        mip_attenuation=0.002
     )
     for i in range(3):
         ax = axes[i]
         h, v = space.index_pairs[i]
-        ax.axhline(show_slices[h]+slice_shift_due_to_padding[h], color="r", linestyle="--", alpha=0.5)
-        ax.axvline(show_slices[v]+slice_shift_due_to_padding[v], color="r", linestyle="--", alpha=0.5)
+        ax.axhline(show_slices_individual[h]+slice_shift_due_to_padding[h], color="r", linestyle="--", alpha=0.5)
+        ax.axvline(show_slices_individual[v]+slice_shift_due_to_padding[v], color="r", linestyle="--", alpha=0.5)
     
     _save_and_close_figure(
         figure,
