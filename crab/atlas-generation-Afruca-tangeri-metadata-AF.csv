@@ -1,0 +1,6 @@
+subject_id,resolution_0,resolution_1,resolution_2,origin,filepath,mask_filepath,species,sex,carapace_width(mm),carapace_length(mm),Handiness,x_rotation(degrees),y_rotation(degrees),rotation(degrees)
+AT2,6,6,6,IAR,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_WGA/atl02R_6um_WGA_x5_y12_r12.tif,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_MASKS/atl02R_6um_MASK_x5_y12_r12.tif,Afruca tangeri,male,33,24,R,-5,12,-12
+AT5,6,6,6,SAL,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_WGA/atl05L_6um_WGA_r12.tif,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_MASKS/atl05L_6um_MASK_r12.tif,Afruca tangeri,male,34,25,L,0,0,-12
+AT6,6,6,6,SAL,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_WGA/atl06R_6um_WGA_x10_y5_r12.tif,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_MASKS/atl06R_6um_MASK_x10_y5_r12.tif,Afruca tangeri,male,33,24,R,10,5,12
+AT8,6,6,6,SAL,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_WGA/atl08R_6um_WGA_r12.tif,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_MASKS/atl08R_6um_MASK_r12.tif,Afruca tangeri,male,37,27,R,0,0,12
+AT9,6,6,6,SAL,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_WGA/atl09R_6um_WGA_x0_y3_r15.tif,/media/ceph/zoo/raw/Crablab/Anatomy/crab_atlas/rotated_MASKS/atl09R_6um_MASK_x0_y3_r15.tif,Afruca tangeri,male,32,23,R,0,3,15
