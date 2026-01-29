@@ -1,3 +1,4 @@
+"""A one-off script to compare equivalent (chosen by eye) slices of an individal molerat and the molerat template"
 from brainglobe_template_builder.plots import plot_orthographic, _auto_adjust_contrast, _save_and_close_figure
 from brainglobe_atlasapi import BrainGlobeAtlas
 from brainglobe_utils.IO.image import load_any
@@ -12,8 +13,6 @@ if __name__ == "__main__":
     range_1_99 = _auto_adjust_contrast(individual_image)
     vmin = range_1_99["vmin"]
     vmax = range_1_99["vmax"]
-    print(vmin)
-    print(vmax)
     
     #rescale template to range of individual
     template_image = template_image.astype(np.float64)
@@ -21,7 +20,7 @@ if __name__ == "__main__":
     target_size = tuple([max(template_image.shape[i], individual_image.shape[i]) for i in range(3)])
 
     space = AnatomicalSpace("ASR", shape=template_image.shape)
-    print(template_image.shape)
+    #  select nice slices to show
     show_slices_template = (322, 131, 173)
     slice_shift_due_to_padding_template = [(np.max(template_image.shape)-template_image.shape[i])//2 for i in range(3)]
     print(slice_shift_due_to_padding_template)
