@@ -1,4 +1,4 @@
-"""A one-off script to compare equivalent (chosen by eye) slices of an individal molerat and the molerat template"
+"""A one-off script to compare equivalent (chosen by eye) slices of an individal molerat and the molerat template"""
 from brainglobe_template_builder.plots import plot_orthographic, _auto_adjust_contrast, _save_and_close_figure
 from brainglobe_atlasapi import BrainGlobeAtlas
 from brainglobe_utils.IO.image import load_any
