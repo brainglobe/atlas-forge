@@ -17,7 +17,7 @@ module load template-builder
 # Set up QBATCH variables to configure parallel jobs that will be spawned by modelbuild.sh
 export QBATCH_PPJ=1
 export QBATCH_CHUNKSIZE=1
-export QBATCH_CORES=10
+export QBATCH_CORES=24
 export QBATCH_SYSTEM="slurm"
 export QBATCH_QUEUE="cpu"
 export QBATCH_MEM="128G"
@@ -51,7 +51,7 @@ cp $0 "${TEMPLATE_DIR}slurm_configuration_script_log.txt"
 chmod g+r "${TEMPLATE_DIR}slurm_configuration_script_log.txt"
 
 # Path to the bash script that builds the template
-BUILD_SCRIPT="${ATLAS_DIR}/build_slurm.sh"
+BUILD_SCRIPT="${ATLAS_DIR}/build_template_with_slurm.sh"
 
 if [ ! -f $BUILD_SCRIPT ]; then
   echo "Error: ${BUILD_SCRIPT} does not exist."
@@ -59,4 +59,10 @@ if [ ! -f $BUILD_SCRIPT ]; then
 fi
 
 # Run the script to build the template
-bash $BUILD_SCRIPT --template-dir $TEMPLATE_DIR --average-type $AVE_TYPE --toggle-dry-run "--no-dry-run" --initial_target $INITIAL_TARGET
+bash $BUILD_SCRIPT --template-dir $TEMPLATE_DIR \
+  --average-type $AVE_TYPE \
+  --toggle-dry-run "--no-dry-run" \
+  --walltime-short "10:00:00" \
+  --walltime-linear "20:00:00" \
+  --walltime-nonlinear "240:00:00" \
+  --initial_target $INITIAL_TARGET
