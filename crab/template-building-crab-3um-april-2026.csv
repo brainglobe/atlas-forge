@@ -1,0 +1,10 @@
+subject_id,resolution_0,resolution_1,resolution_2,origin,filepath,mask_filepath,use
+Atl20L,3,3,3,IPR,/home/alessandro/crab_test/3um/Atl20L_3um_WGA.tif,,TRUE
+Atl21L,3,3,3,IPR,/home/alessandro/crab_test/3um/Atl21L_3um_WGA.tif,,TRUE
+Atl22R,3,3,3,SAR,/home/alessandro/crab_test/3um/Atl22R_3um_WGA.tif,,TRUE
+Atl23R,3,3,3,SRP,/home/alessandro/crab_test/3um/Atl23R_3um_WGA.tif,,TRUE
+Atl24R,3,3,3,IAL,/home/alessandro/crab_test/3um/Atl24R_3um_WGA.tif,,TRUE
+Atl25R,3,3,3,IRA,/home/alessandro/crab_test/3um/Atl25R_3um_WGA.tif,,TRUE
+Atl27R,3,3,3,SLA,/home/alessandro/crab_test/3um/Atl27R_3um_WGA.tif,,TRUE
+Atl28L,3,3,3,SRP,/home/alessandro/crab_test/3um/Atl28L_3um_WGA.tif,,TRUE
+Atl29L,3,3,3,SRP,/home/alessandro/crab_test/3um/Atl29L_3um_WGA.tif,,TRUE
