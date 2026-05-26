@@ -26,11 +26,11 @@ export QBATCH_OPTIONS="--mail-type=ALL --mail-user=<user@email.com> --mem 128G"
 # Define atlas-forge directory, species and template names, and average type
 ATLAS_DIR="/ceph/neuroinformatics/neuroinformatics/atlas-forge"
 SPECIES="ZebraFinch"
-TEMP_NAME="template_sym_mixed_res-25um_n-16_avg-trimean"
+TEMP_NAME="template_sym_mixed_res-25um_n-20_avg-trimean"
 AVE_TYPE="efficient_trimean"
 
 TEMPLATE_DIR="${ATLAS_DIR}/${SPECIES}/templates/${TEMP_NAME}/"
-INITIAL_TARGET="${ATLAS_DIR}/${SPECIES}/templates/initial_target_sub-ZF8003m_res-25x25x25um_origin-asr_processed.nii.gz"
+INITIAL_TARGET="${ATLAS_DIR}/${SPECIES}/templates/sub-ZF8222f_res-25x25x25um_origin-asr_processed.nii_orig-asr_pad-extra-60_aligned.nii.gz"
 
 if [ ! -d "${TEMPLATE_DIR}" ]; then
   mkdir $TEMPLATE_DIR
@@ -66,3 +66,4 @@ bash $BUILD_SCRIPT --template-dir $TEMPLATE_DIR \
   --walltime-linear "20:00:00" \
   --walltime-nonlinear "240:00:00" \
   --initial_target $INITIAL_TARGET
+
