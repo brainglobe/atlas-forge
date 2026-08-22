@@ -25,7 +25,7 @@ for subfolder in input_dir.iterdir():
             channel_data = data[:, channel_index, :, :] 
             print(channel_data.shape)
             channel_data = da.from_array(channel_data, chunks={0: 1, 1: channel_data.shape[1], 2: channel_data.shape[2]})
-            channel_data = downsample_anisotropic_stack_to_isotropic(channel_data,(3, 0.86, 0.86), target_resolution_um)
+            channel_data = downsample_anisotropic_stack_to_isotropic(channel_data,(3, 1.73, 1.73), target_resolution_um)
             save_any(channel_data, Path.home()/"crab_test"/f"{subfolder.name}_{target_resolution_um}um_{channel_name}.tif")
             Path.mkdir(output_dir/f"{subfolder.name}/{target_resolution_um}um/", exist_ok=True, parents=True)
             save_any(channel_data, output_dir/f"{subfolder.name}/{target_resolution_um}um/{subfolder.name}_{target_resolution_um}um_{channel_name}.tif")
